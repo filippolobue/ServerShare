@@ -48,13 +48,14 @@ public class ServerMain {
 	    try {
 	      while (true) {
 	        System.out.println("Server: in attesa di richieste...\n");
-
+	        
 	        try {
 	          // bloccante finchè non avviene una connessione
 	          clientSocket = serverSocket.accept();
-	          clientSocket.setSoTimeout(60000);
+	          clientSocket.setSoTimeout(3000);
 	          
 	          System.out.println("Server: connessione accettata: " + clientSocket);
+	          //LOG CONNESSIONE !!
 	        } catch (Exception e) {System.err.println("Server: problemi nella accettazione della connessione: "+ e.getMessage()); e.printStackTrace();
 	          continue;
 	        }
@@ -73,6 +74,8 @@ public class ServerMain {
 	      // chiusura di stream e socket
 	      System.out.println("ServerMain: termino...");
 	      System.exit(2);
+	    }finally{
+	    	serverSocket.close();
 	    }
 
 	  }
