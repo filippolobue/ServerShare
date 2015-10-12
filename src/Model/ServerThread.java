@@ -1,7 +1,5 @@
 package Model;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
@@ -16,12 +14,12 @@ public class ServerThread extends Thread{
 	  }
 
 	  public void run() {
-	    DataInputStream inSock;
-	    DataOutputStream outSock;
+	   // DataInputStream inSock;
+	   // DataOutputStream outSock;
 
 	    System.out.println("Attivazione figlio: " + Thread.currentThread().getName());
 	    try {
-	      try {
+	      /*try {
 	        // creazione stream di input e out da socket
 	        inSock = new DataInputStream(clientSocket.getInputStream());
 	        outSock = new DataOutputStream(clientSocket.getOutputStream());
@@ -35,7 +33,7 @@ public class ServerThread extends Thread{
 	        e.printStackTrace();
 	        // il server continua l'esecuzione riprendendo dall'inizio del ciclo
 	        return;
-	      }
+	      }*/
 
 	      try {
 	    	  //prima cosa che deve fare il cliente è l'autenticazione!!!
@@ -48,8 +46,8 @@ public class ServerThread extends Thread{
 	    	  
     		  //Ciclo infinito 
 	        while (true) {
-	          
-	        } // while
+	          this.ricevitore.decodifica();
+	        } //while
 	      } catch (Exception e) {//Exception lanciata quando un client digita ctrl z perchè non vuole più inviare Direttori(file contenuti in esso)
 	        System.out.println("Fine invio da parte del Client: ");
 	        //e.printStackTrace();

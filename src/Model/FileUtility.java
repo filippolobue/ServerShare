@@ -1,6 +1,8 @@
 package Model;
 import java.io.*;
 
+import Tree.*;
+
 /*
  * String ccc = "asdasdasd";
 	        System.out.println(ccc);
@@ -10,6 +12,25 @@ import java.io.*;
  */
 
 public class FileUtility {
+	
+	static protected void buildFS(Tree<Element> start,File folder)
+	{
+		//System.out.println("start: " + start + " folder: " + folder);
+		Tree<Element> f = start.addChild(new Element(folder.getName(),TipoFile.CARTELLA,folder.getAbsolutePath()));
+		 File[] files = folder.listFiles();
+		 File fileCorr;
+		 //System.out.println("numero file: " + files.length);
+		 for (int i = 0; i < files.length; i++) 
+		 {
+			 fileCorr = files[i];
+			 if (fileCorr.isFile())
+			 {
+				 f.addChild(new Element(fileCorr.getName(),TipoFile.UNKNOWN,fileCorr.getAbsolutePath()));
+			 }else if(fileCorr.isDirectory()){buildFS(f,fileCorr);}
+		 }
+	}
+	
+	
   static protected void trasferisci_a_byte_file_binario(DataInputStream src, DataOutputStream dest) throws IOException {
 	  
     // ciclo di lettura da sorgente e scrittura su destinazione

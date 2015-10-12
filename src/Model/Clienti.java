@@ -44,6 +44,7 @@ public class Clienti {
 		{
 			throw new Exception("Non esiste l'username come Cliente.");
 		}
+		this.login.remove(username);
 	}
 	
 	public boolean autentica(String username, String pw)
