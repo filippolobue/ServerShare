@@ -1,39 +1,16 @@
 package Model;
 
-import java.io.File;
-import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import Tree.Element;
-import Tree.TipoFile;
-import Tree.Tree;
-
 public class ServerMain {
 	
-	private static Tree<Element> root = new Tree<Element>(new Element("nome1",TipoFile.CARTELLA,"start"));
-	
-	private static void buildFS()
-	{
-		for(String dirName : Roots.getInstance().getRoots())
-		{
-			System.out.println("[ServerMain] dirName: " + dirName);
-			File dirCorr = new File(dirName);
-	          if (dirCorr.exists() && dirCorr.isDirectory()) {
-	        	  FileUtility.buildFS(root, dirCorr);
-	          } else {
-	            System.out.print(dirName + " e' un direttorio non esistente o Non è un direttorio");
-	            return;
-	          }	
-		}
-	}
-	
-	public static void main(String[] args) throws IOException {	  
+	public static void main(String[] args) throws Exception {	  
 		  
 	    // Porta sulla quale ascolta il server
 	    int port = -1;
-	    buildFS();
-	    System.out.println(root.toString());
+	    Document.getIstance().updateRootsFS();
+
 	    // controllo argomenti
 	    try {
 	      if (args.length == 1) {
@@ -76,7 +53,7 @@ public class ServerMain {
 	        try {
 	          // bloccante finchè non avviene una connessione
 	          clientSocket = serverSocket.accept();
-	          clientSocket.setSoTimeout(3000);
+	          clientSocket.setSoTimeout(30000);
 	          
 	          System.out.println("Server: connessione accettata: " + clientSocket);
 	          //LOG CONNESSIONE !!

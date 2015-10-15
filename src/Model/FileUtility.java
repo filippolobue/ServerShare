@@ -3,20 +3,31 @@ import java.io.*;
 
 import Tree.*;
 
-/*
- * String ccc = "asdasdasd";
-	        System.out.println(ccc);
-	  	  	byte[] asd = ccc.getBytes();
-	  	  String str = new String(asd, StandardCharsets.UTF_8);
-	  	  System.out.println(str);
- */
-
 public class FileUtility {
 	
-	static protected void buildFS(Tree<Element> start,File folder)
+	private static String getExtensione(String fileName)
 	{
+		String extension = "";
+		int i = fileName.lastIndexOf('.');
+		int p = Math.max(fileName.lastIndexOf('/'), fileName.lastIndexOf('\\'));
+
+		if (i > p) {
+		    extension = fileName.substring(i+1);
+		}
+		return extension;
+	}
+	
+	static protected void buildFS(FileMultimediale start,File folder) throws Exception
+	{
+		//start deve essere un composite perchè deve contenere altri FileMultimediali
+		if(!start.isComposite())
+		{
+			System.out.println("[FileUtility] Errore costruzione albero root");
+			return;
+		}
 		//System.out.println("start: " + start + " folder: " + folder);
-		Tree<Element> f = start.addChild(new Element(folder.getName(),TipoFile.CARTELLA,folder.getAbsolutePath()));
+		FileMultimediale fm = FMFactory.createComposite(folder.getName(), true, folder.getAbsolutePath());
+		start.add(fm);
 		 File[] files = folder.listFiles();
 		 File fileCorr;
 		 //System.out.println("numero file: " + files.length);
@@ -25,8 +36,10 @@ public class FileUtility {
 			 fileCorr = files[i];
 			 if (fileCorr.isFile())
 			 {
-				 f.addChild(new Element(fileCorr.getName(),TipoFile.UNKNOWN,fileCorr.getAbsolutePath()));
-			 }else if(fileCorr.isDirectory()){buildFS(f,fileCorr);}
+				 //System.out.println("Path: " + fileCorr.getAbsolutePath());
+				 //System.out.println("Estensione: " + getExtensione(fileCorr.getAbsolutePath()));
+				 fm.add(FMFactory.createLeaf(fileCorr.getName(), true, fileCorr.getAbsolutePath(), getExtensione(fileCorr.getAbsolutePath())));
+			 }else if(fileCorr.isDirectory()){buildFS(fm,fileCorr);}
 		 }
 	}
 	
