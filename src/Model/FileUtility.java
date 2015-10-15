@@ -1,5 +1,9 @@
 package Model;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.attribute.BasicFileAttributes;
 
 import Tree.*;
 
@@ -26,7 +30,10 @@ public class FileUtility {
 			return;
 		}
 		//System.out.println("start: " + start + " folder: " + folder);
-		FileMultimediale fm = FMFactory.createComposite(folder.getName(), true, folder.getAbsolutePath());
+		Path p = Paths.get(folder.getAbsolutePath());
+		BasicFileAttributes fileAttributes = Files.readAttributes(p, BasicFileAttributes.class);
+
+		FileMultimediale fm = FMFactory.createComposite(folder.getName(), true, folder.getAbsolutePath(), fileAttributes.creationTime());
 		start.add(fm);
 		 File[] files = folder.listFiles();
 		 File fileCorr;
@@ -38,7 +45,7 @@ public class FileUtility {
 			 {
 				 //System.out.println("Path: " + fileCorr.getAbsolutePath());
 				 //System.out.println("Estensione: " + getExtensione(fileCorr.getAbsolutePath()));
-				 fm.add(FMFactory.createLeaf(fileCorr.getName(), true, fileCorr.getAbsolutePath(), getExtensione(fileCorr.getAbsolutePath())));
+				 fm.add(FMFactory.createLeaf(fileCorr.getName(), true, fileCorr.getAbsolutePath(), getExtensione(fileCorr.getAbsolutePath()),fileAttributes.creationTime() ));
 			 }else if(fileCorr.isDirectory()){buildFS(fm,fileCorr);}
 		 }
 	}

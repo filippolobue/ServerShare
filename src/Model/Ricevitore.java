@@ -78,6 +78,11 @@ public class Ricevitore {
 		public void outputFS() 
 		{
 			System.out.println("[Esecutore] outpusFS");
+			/*
+			 * Cosa si invia al cliente:
+			 * 1-	intero che rappresenta il numero di FileMultimediali(cartelle, audio, video, unknown)
+			 * 2-	<Titolo><>
+			 */
 		}
 		
 

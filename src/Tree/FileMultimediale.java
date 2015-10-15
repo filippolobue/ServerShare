@@ -1,12 +1,11 @@
 package Tree;
 
-import java.io.IOException;
-import java.util.Date;
+import java.nio.file.attribute.FileTime;
 
 /** "Component" */
 public abstract class FileMultimediale {
 	protected String titolo;
-	protected Date data_creazione;
+	protected FileTime data_creazione;
 	protected boolean condivisibile;
 	protected String percorso_assoluto;
 
@@ -27,6 +26,7 @@ public abstract class FileMultimediale {
 		this.titolo = titolo;
 		this.condivisibile = cond;
 		this.percorso_assoluto = perc;
+		this.data_creazione = null;
 		this.parent = null;
 	}
 
@@ -40,7 +40,7 @@ public abstract class FileMultimediale {
 		return this.condivisibile;
 	}
 	
-	public Date getData()
+	public FileTime getData()
 	{
 		return this.data_creazione;
 	}
