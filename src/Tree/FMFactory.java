@@ -10,6 +10,7 @@ public class FMFactory{
 	public static FileMultimediale createComposite(String tit,boolean b,String perc){
 		return new Cartella(tit,b,perc);
 	}
+	
 	public static FileMultimediale createComposite(String tit,boolean b,String perc, FileTime data){
 		return new Cartella(tit,b,perc,data);
 	}
@@ -49,9 +50,7 @@ public class FMFactory{
 	}
 }
 
-class Audio extends FileMultimediale {
-	
-	private List<Image> immagini;
+class Audio extends FileMultimediale{
 	
 	public Audio(String titolo, boolean cond, String perc)
 	{
@@ -77,10 +76,8 @@ class Audio extends FileMultimediale {
 	{return false;}
 }
 
-class Videoclip extends FileMultimediale {
-	
-	private List<Image> immagini;
-	
+class Videoclip extends FileMultimediale{
+
 	public Videoclip(String titolo, boolean cond, String perc)
 	{
 		super(titolo,cond,perc);
@@ -105,9 +102,7 @@ class Videoclip extends FileMultimediale {
 	{return false;}
 }
 
-class Unknown extends FileMultimediale {
-	
-	private List<Image> immagini;
+class Unknown extends FileMultimediale{
 	
 	public Unknown(String titolo, boolean cond, String perc)
 	{
@@ -172,7 +167,17 @@ class Cartella extends FileMultimediale{
 		this.files.remove(fm);
 		fm.parent = null;
 	}
-
+	
+	public List<Image> getImages()
+	{
+		return null;
+	}
+	
+	public List<FileMultimediale> getChildren()
+	{
+		return this.files;
+	}
+	
 	public String toString()
 	{	String ret = this.getTitolo()+"["+this.getClass()+"]";
 		for(FileMultimediale fm : this.files)

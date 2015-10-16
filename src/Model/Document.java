@@ -20,8 +20,9 @@ public class Document {
 	private Roots roots;
 	private Clienti clienti;
 	
-	private static FileMultimediale root = FMFactory.createComposite("root", true, "root");
-
+	private FileMultimediale root = FMFactory.createComposite("root", true, "root");
+	private static int numFM = 0;
+	
 	private Document()
 	{
 		this.roots = Roots.getInstance();
@@ -36,6 +37,11 @@ public class Document {
 	Clienti getClienti()
 	{
 		return this.clienti;
+	}
+	
+	 FileMultimediale getRoot()
+	{
+		return this.root;
 	}
 	
 	public static Document getIstance()
@@ -60,8 +66,35 @@ public class Document {
 	            return;
 	          }	
 		}
+		this.numFM = this.calcolaNumFM(root, 0);
 	    System.out.println(root.toString());
+	    System.out.println("Numerosità FS: " + this.numFM);
 	}
+	
+	private int calcolaNumFM(FileMultimediale fm, int somm) throws Exception
+	{
+		if(fm.isComposite())
+		{
+			for(FileMultimediale f : fm.getChildren())
+			{
+				somm += calcolaNumFM(f,1);
+			}
+		}else return 1;
+		
+		return somm;
+	}
+	
+/*
+ 	private int calcolaNumFM(FileMultimediale fm, int somm)
+	{
+		for(FileMultimediale fm : this.root.getChildren())
+		{
+			if(fm.isComposite())
+			somm += calcolaNumFM(fm,somm);
+			else somm++;
+		}
+	} 
+ */
 }
 
 class Clienti {

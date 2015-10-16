@@ -1,14 +1,17 @@
 package Tree;
 
+import java.awt.Image;
 import java.nio.file.attribute.FileTime;
+import java.util.List;
 
 /** "Component" */
-public abstract class FileMultimediale {
+public abstract class FileMultimediale{
+	
 	protected String titolo;
 	protected FileTime data_creazione;
 	protected boolean condivisibile;
 	protected String percorso_assoluto;
-
+	protected List<Image> immagini;
 	protected FileMultimediale parent;
 	
 	public abstract boolean isComposite();
@@ -19,6 +22,11 @@ public abstract class FileMultimediale {
 	
 	public void remove(FileMultimediale fm)throws Exception{
 		throw new Exception("Impossibile eliminare in questo component");
+	}
+	
+	public List<FileMultimediale> getChildren() throws Exception
+	{
+		throw new Exception("Impossibile ottenere FileMultimediali figli");
 	}
 	
 	public FileMultimediale(String titolo,boolean cond,String perc)
@@ -49,7 +57,12 @@ public abstract class FileMultimediale {
 	{
 		return this.percorso_assoluto;
 	}
-
+	
+	public  List<Image> getImages() throws Exception
+	{
+		return this.immagini;
+	}
+	
 	public boolean equals(Object obj)
 	{
 		if (this == obj) 

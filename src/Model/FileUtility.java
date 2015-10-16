@@ -9,7 +9,7 @@ import Tree.*;
 
 public class FileUtility {
 	
-	private static String getExtensione(String fileName)
+	public static String getExtensione(String fileName)
 	{
 		String extension = "";
 		int i = fileName.lastIndexOf('.');
@@ -66,7 +66,6 @@ public class FileUtility {
       e.printStackTrace();
     }
   } // trasferisci_a_byte_file_binario
-
   
   static protected void trasferisci_N_byte_file_binario(DataInputStream src,  DataOutputStream dest, long daTrasferire) throws IOException {
     int cont = 0;

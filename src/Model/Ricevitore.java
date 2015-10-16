@@ -1,9 +1,13 @@
 package Model;
 
+import java.awt.Image;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.List;
+
+import Tree.FileMultimediale;
 
 /*
  * Riceve, decodifica ed esegue le richieste provenienti dal Cliente
@@ -20,7 +24,7 @@ public class Ricevitore {
 		this.clientSocket = clientSocket;
 		this.inSock = new DataInputStream(clientSocket.getInputStream());
         this.outSock = new DataOutputStream(clientSocket.getOutputStream());
-        this.execute = new Esecutore();
+        this.execute = new Esecutore(this.clientSocket);
 	}
 	
 	/*
@@ -41,7 +45,7 @@ public class Ricevitore {
  * 00000001 -> disconnetti
  * 00000010 -> tutto FS
  */
-	public void decodifica() throws IOException
+	public void decodifica() throws Exception
 	{
 		System.out.println("[Ricevitore] Decodifica avviata...");
 		byte[] b = new byte[1];
@@ -58,15 +62,23 @@ public class Ricevitore {
 			this.execute.disconnetti(this.clientSocket);
 			break;
 		case "00000010":
-			this.execute.outputFS();
+			System.out.println("[Esecutore] outpusFS");
+			this.execute.outputFS(Document.getIstance().getRoot());
+			this.outSock.writeInt(-1);System.out.println(-1);
+			this.outSock.writeInt(-1);this.outSock.writeInt(-1);this.outSock.writeInt(-1);this.outSock.writeInt(-1);
 			break;
 		}
 	}
 	
 	public class Esecutore{
 		
-		public Esecutore()
+		private Socket clientSocket;
+	    private DataOutputStream outSock;
+	    
+		public Esecutore(Socket clientSocket) throws IOException
 		{
+			this.clientSocket = clientSocket;
+	        this.outSock = new DataOutputStream(clientSocket.getOutputStream());
 		}
 
 		public void disconnetti(Socket cS) throws IOException
@@ -75,16 +87,44 @@ public class Ricevitore {
 			cS.close();
 		}
 		
-		public void outputFS() 
+		public void outputFS(FileMultimediale fm) throws Exception 
 		{
-			System.out.println("[Esecutore] outpusFS");
 			/*
 			 * Cosa si invia al cliente:
-			 * 1-	intero che rappresenta il numero di FileMultimediali(cartelle, audio, video, unknown)
-			 * 2-	<Titolo><>
+			 * 0-	<intero -1>: Fine FS Server
+			 * 1-	<Titolo><data><percorso_assoluto><estensione><intero num immagini>
+			 * 2-	<dim1><imm1><dim2><imm2>etc...
+			 * 3-	<intero num file contenuti>
 			 */
+			this.outSock.writeInt(1);System.out.print(1+" ");
+			this.outSock.writeUTF(fm.getTitolo());System.out.print(fm.getTitolo()+" ");
+			//this.outSock.writeUTF(fm.getData()+"");
+			this.outSock.writeUTF(fm.getPath());System.out.print(fm.getPath()+" ");
+			if(fm.isComposite()){
+				this.outSock.writeUTF("composite");System.out.print("composite ");}
+			else{
+				this.outSock.writeUTF(FileUtility.getExtensione(fm.getPath()));System.out.print(FileUtility.getExtensione(fm.getPath())+" ");}
+			
+			List<Image> images = fm.getImages();
+			int numIm = 0;
+			if(images != null)
+				numIm = images.size();
+			this.outSock.writeInt(numIm);System.out.print(numIm+" ");
+			/*
+			 * INVIO DELLE IMMAGINI !!!
+			 * 
+			*/
+			if(fm.isComposite())
+			{
+				this.outSock.writeInt(fm.getChildren().size());System.out.println(fm.getChildren().size());
+				for(FileMultimediale f : fm.getChildren())
+				{
+					outputFS(f);
+				}
+			}else{
+				this.outSock.writeInt(0);System.out.println(0);	//Un component non può contenere altri Component
+			}
+			
 		}
-		
-
 	}
 }
