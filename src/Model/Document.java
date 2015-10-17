@@ -2,10 +2,6 @@ package Model;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -84,17 +80,30 @@ public class Document {
 		return somm;
 	}
 	
-/*
- 	private int calcolaNumFM(FileMultimediale fm, int somm)
+//all'interno della struttura ad albero controlla se il path specificato è appartenente ad un FM all'interno dell'albero
+	private boolean pisFMValid(FileMultimediale fm, String path) throws Exception
 	{
-		for(FileMultimediale fm : this.root.getChildren())
+		if(fm.getPath().equals(path) && fm.isCondivisibile())
+			return true;
+		
+		if(fm.isComposite())
 		{
-			if(fm.isComposite())
-			somm += calcolaNumFM(fm,somm);
-			else somm++;
+			for(FileMultimediale f : fm.getChildren())
+			{
+				if( pisFMValid(f,path))
+					return true;
+			}
 		}
-	} 
- */
+		
+		return false;
+	}
+	
+	public boolean isFMValid(String path) throws Exception
+	{
+		return pisFMValid(this.root,path);
+	}
+//------------------------------------------------------------------------------------
+
 }
 
 class Clienti {
