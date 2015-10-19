@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import Model.LogReport.FileLogReport;
+import Model.LogReport.ILogReport;
 import Tree.*;
 
 
@@ -19,10 +21,13 @@ public class Document {
 	private FileMultimediale root = FMFactory.createComposite("root", true, "root");
 	private static int numFM = 0;
 	
-	private Document()
+	private ILogReport logReport;
+	
+	private Document() throws IOException
 	{
 		this.roots = Roots.getInstance();
 		this.clienti = Clienti.getInstance();
+		this.logReport = new FileLogReport("report.txt");
 	}
 	
 	Roots getRoots()
@@ -40,7 +45,7 @@ public class Document {
 		return this.root;
 	}
 	
-	public static Document getIstance()
+	public static Document getIstance() throws IOException
 	{
 		if(istanza == null)
 		{
@@ -64,7 +69,7 @@ public class Document {
 		}
 		this.numFM = this.calcolaNumFM(root, 0);
 	    System.out.println(root.toString());
-	    System.out.println("Numerosità FS: " + this.numFM);
+//	    System.out.println("Numerosità FS: " + this.numFM);
 	}
 	
 	private int calcolaNumFM(FileMultimediale fm, int somm) throws Exception
@@ -103,7 +108,27 @@ public class Document {
 		return pisFMValid(this.root,path);
 	}
 //------------------------------------------------------------------------------------
-
+	
+// ---------- Gestione Clienti e Roots----------
+	public void addCliente(String username, String pw) throws IOException
+	{
+		this.clienti.add(username, pw);
+	}
+	
+	public void addRoots(String root) throws IOException
+	{
+		this.roots.add(root);
+	}
+// ---------- ---------- ---------- ----------
+	
+	public void report(String who, String message) throws IOException 
+	{
+		this.logReport.report(who, message);
+	}
+	public void close() throws IOException
+	{
+		this.logReport.close();
+	}
 }
 
 class Clienti {

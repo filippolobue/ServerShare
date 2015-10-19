@@ -148,7 +148,7 @@ public class Ricevitore {
 			String path = this.inSock.readUTF();
 			File fileCorr = null;
 			System.out.println("[Esecutore] ricevuto " + path);
-//			if(false)//
+
 			if(!Document.getIstance().isFMValid(path))
 			{
 				System.out.println("[Esecutore] path specificato non valido");

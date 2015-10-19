@@ -3,6 +3,9 @@ package Model;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import Presenter.MainPresenter;
+import View.MainView;
+
 public class ServerMain {
 	
 	public static void main(String[] args) throws Exception {	  
@@ -10,7 +13,8 @@ public class ServerMain {
 	    // Porta sulla quale ascolta il server
 	    int port = -1;
 	    Document.getIstance().updateRootsFS();
-
+//	    Document.getIstance().report("prova", "asdasdasdasd");
+//	    Document.getIstance().close();
 	    // controllo argomenti
 	    try {
 	      if (args.length == 1) {
@@ -47,6 +51,11 @@ public class ServerMain {
 	    }
 
 	    try {
+				MainView window = new MainView();
+	    		MainPresenter mp = new MainPresenter(window);
+	    		
+				window.open(mp);
+		
 	      while (true) {
 	        System.out.println("Server: in attesa di richieste...\n");
 	        
