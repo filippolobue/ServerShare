@@ -131,6 +131,8 @@ public class Document {
 	}
 }
 
+
+
 class Clienti {
 	
 	private static Clienti istanza;

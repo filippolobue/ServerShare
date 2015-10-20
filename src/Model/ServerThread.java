@@ -14,26 +14,10 @@ public class ServerThread extends Thread{
 	  }
 
 	  public void run() {
-	   // DataInputStream inSock;
-	   // DataOutputStream outSock;
 
 	    System.out.println("Attivazione figlio: " + Thread.currentThread().getName());
 	    try {
-	      /*try {
-	        // creazione stream di input e out da socket
-	        inSock = new DataInputStream(clientSocket.getInputStream());
-	        outSock = new DataOutputStream(clientSocket.getOutputStream());
-	      } catch (IOException ioe) {
-	        System.out.println("Problemi nella creazione degli stream di input/output " + "su socket: ");
-	        ioe.printStackTrace();
-	        // il server continua l'esecuzione riprendendo dall'inizio del ciclo
-	        return;
-	      } catch (Exception e) {
-	        System.out.println("Problemi nella creazione degli stream di input/output " + "su socket: ");
-	        e.printStackTrace();
-	        // il server continua l'esecuzione riprendendo dall'inizio del ciclo
-	        return;
-	      }*/
+	    	Document.getIstance().report("ServerThread", "Avviato Thread per cliente " + this.clientSocket.getInetAddress());
 
 	      try {
 	    	  //prima cosa che deve fare il cliente è l'autenticazione!!!
