@@ -2,25 +2,30 @@ package View;
 
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Menu;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.widgets.MenuItem;
-import org.eclipse.swt.events.SelectionAdapter;
 
 public class MainView {
 
 	protected Shell shell;
-	protected MenuItem mntmClienti;
-	protected MenuItem mntmRoot;
-	
+
+	/**
+	 * Launch the application.
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		try {
+			MainView window = new MainView();
+			window.open();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	/**
 	 * Open the window.
-	 * @wbp.parser.entryPoint
 	 */
-	public void open(SelectionAdapter sa) {
+	public void open() {
 		Display display = Display.getDefault();
-		createContents(sa);
+		createContents();
 		shell.open();
 		shell.layout();
 		while (!shell.isDisposed()) {
@@ -33,38 +38,11 @@ public class MainView {
 	/**
 	 * Create contents of the window.
 	 */
-	protected void createContents(SelectionAdapter sa) {
+	protected void createContents() {
 		shell = new Shell();
-		shell.setSize(800, 420);
-		shell.setText("ServerShare");
-		
-		Menu menu = new Menu(shell, SWT.BAR);
-		menu.setLocation(new Point(0, 0));
-		shell.setMenuBar(menu);
-		
-		this.mntmClienti = new MenuItem(menu, SWT.NONE);
-//		mntmClienti.addSelectionListener(new SelectionAdapter() {
-//			@Override
-//			public void widgetSelected(SelectionEvent e) {
-//				System.out.println("clickkkkkkk");
-//			}
-//		});
-		mntmClienti.setText("CLIENTI");
-		
-		this.mntmRoot = new MenuItem(menu, SWT.NONE);
-//		mntmRoot.addSelectionListener(new SelectionAdapter() {
-//			@Override
-//			public void widgetSelected(SelectionEvent e) {
-//			}
-//		});
-		mntmRoot.setText("ROOT");
-		this.addAscoltatore(sa);
+		shell.setSize(450, 300);
+		shell.setText("SWT Application");
+
 	}
-	
-	private void addAscoltatore(SelectionAdapter sa)
-	{
-		System.out.println("addAscoltatore");
-		this.mntmClienti.addSelectionListener(sa);
-		this.mntmRoot.addSelectionListener(sa);
-	}
+
 }
