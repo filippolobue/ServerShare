@@ -41,7 +41,6 @@ public class Ricevitore {
 		return (Clienti.getInstance().autentica(username, pw));
 	}
 	
-	
 /*
  * 00000000 -> codice per confermare azioni
  * 00000001 -> disconnetti
@@ -99,6 +98,7 @@ public class Ricevitore {
 		public void disconnetti(Socket cS) throws IOException
 		{
 			System.out.println("[Esecutore] Disconnessione");
+		    Document.getIstance().report("Esecutore", "Disconnessione cliente");
 			cS.close();
 		}
 		
@@ -111,6 +111,7 @@ public class Ricevitore {
 			 * 2-	<dim1><imm1><dim2><imm2>etc...
 			 * 3-	<intero num file contenuti>
 			 */
+		    Document.getIstance().report("Esecutore", "Invio FS condivisibile al cliente");
 			this.outSock.writeInt(1);
 			this.outSock.writeUTF(fm.getTitolo());
 			//this.outSock.writeUTF(fm.getData()+"");
@@ -157,6 +158,7 @@ public class Ricevitore {
 			}
 			this.invioCodice("00000000"); //ok procedo all'invio del file
 			fileCorr = new File(path);
+		    Document.getIstance().report("Esecutore", "Invio risorsa " + fileCorr.getName()+" a cliente " + this.clientSocket.getInetAddress());
 			this.outSock.writeLong(fileCorr.length());
 			FileUtility.trasferisci_N_byte_file_binario_fast(new DataInputStream(new FileInputStream(fileCorr.getAbsolutePath())), outSock,100, (fileCorr.length()/100),(int)(fileCorr.length()%100));
 		}
