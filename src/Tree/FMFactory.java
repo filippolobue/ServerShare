@@ -8,7 +8,7 @@ import java.util.List;
 public class FMFactory{
 	
 	public static FileMultimediale createComposite(String tit,boolean b,String perc){
-		return new Cartella(tit,b,perc);
+		return new Cartella(tit,b,perc,null);
 	}
 	
 	public static FileMultimediale createComposite(String tit,boolean b,String perc, FileTime data){

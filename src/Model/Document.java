@@ -30,19 +30,53 @@ public class Document {
 		this.logReport = new FileLogReport("report.txt");
 	}
 	
-	Roots getRoots()
+	public Roots getRoots()
 	{
 		return this.roots;
 	}
 	
-	Clienti getClienti()
+	public Clienti getClienti()
 	{
 		return this.clienti;
 	}
 	
-	 FileMultimediale getRoot()
+	public FileMultimediale getRoot()
 	{
 		return this.root;
+	}
+	
+	public List<FileMultimediale> getTableElement() throws Exception
+	{
+		List<FileMultimediale> ret = new ArrayList<FileMultimediale>();
+		ret = this.root.getChildren();		
+		return ret;
+	}
+	
+	private List<FileMultimediale> getTableElement(FileMultimediale root,FileMultimediale fm) throws Exception
+	{
+		if(root.equals(fm))
+		{
+			if(root.isComposite())
+				return root.getChildren();
+			else return null;
+		}else{
+			if(root.isComposite())
+				for(FileMultimediale f : root.getChildren())
+				{
+					return this.getTableElement(f, fm);
+				}
+		}
+		
+		return null;
+	}
+	
+	public List<FileMultimediale> getTableElement(FileMultimediale fm) throws Exception
+	{
+//		return this.getTableElement(this.root,fm);
+		if (fm.isComposite()) {
+			return fm.getChildren();
+		}
+		return null;
 	}
 	
 	public static Document getIstance() throws IOException

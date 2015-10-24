@@ -1,3 +1,33 @@
 [ServerMain];2015/10/21 23:31:50;Avviato ServerShare
 [ServerMain];2015/10/21 23:32:36;Avviato ServerShare
 [ServerMain];2015/10/21 23:33:01;Avviato ServerShare
+[ServerMain];2015/10/22 00:46:05;Avviato ServerShare
+[ServerThread];2015/10/22 00:46:05;Avviato Thread per cliente /127.0.0.1
+[Esecutore];2015/10/22 00:46:05;Invio risorsa prova1.txt a cliente /127.0.0.1
+[ServerMain];2015/10/22 00:56:53;Avviato ServerShare
+[ServerMain];2015/10/24 04:33:32;Avviato ServerShare
+[ServerMain];2015/10/24 04:34:12;Avviato ServerShare
+[ServerMain];2015/10/24 04:34:16;Avviato ServerShare
+[ServerMain];2015/10/24 04:34:22;Avviato ServerShare
+[ServerMain];2015/10/24 04:37:47;Avviato ServerShare
+[ServerMain];2015/10/24 04:40:05;Avviato ServerShare
+[ServerMain];2015/10/24 04:40:19;Avviato ServerShare
+[ServerMain];2015/10/24 04:42:17;Avviato ServerShare
+[ServerMain];2015/10/24 04:45:06;Avviato ServerShare
+[ServerMain];2015/10/24 04:48:31;Avviato ServerShare
+[ServerMain];2015/10/24 05:42:14;Avviato ServerShare
+[ServerMain];2015/10/24 05:43:31;Avviato ServerShare
+[ServerMain];2015/10/24 05:48:32;Avviato ServerShare
+[ServerMain];2015/10/24 05:49:15;Avviato ServerShare
+[ServerMain];2015/10/24 05:51:34;Avviato ServerShare
+[ServerMain];2015/10/24 05:51:50;Avviato ServerShare
+[ServerMain];2015/10/24 05:52:09;Avviato ServerShare
+[ServerMain];2015/10/24 06:03:11;Avviato ServerShare
+[ServerMain];2015/10/24 06:03:45;Avviato ServerShare
+[ServerMain];2015/10/24 06:10:16;Avviato ServerShare
+[ServerMain];2015/10/24 06:10:21;Avviato ServerShare
+[ServerMain];2015/10/24 06:11:12;Avviato ServerShare
+[ServerMain];2015/10/24 06:13:12;Avviato ServerShare
+[ServerMain];2015/10/24 06:13:17;Avviato ServerShare
+[ServerMain];2015/10/24 14:35:21;Avviato ServerShare
+[ServerMain];2015/10/24 15:47:49;Avviato ServerShare

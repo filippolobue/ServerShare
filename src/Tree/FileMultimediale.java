@@ -38,6 +38,11 @@ public abstract class FileMultimediale{
 		this.parent = null;
 	}
 
+	public FileMultimediale getParent()
+	{
+		return this.parent;
+	}
+	
 	public String getTitolo()
 	{
 		return this.titolo;
