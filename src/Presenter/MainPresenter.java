@@ -9,6 +9,8 @@ import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Shell;
 
 import Model.Document;
 import View.MainView;
@@ -21,12 +23,14 @@ public class MainPresenter extends SelectionAdapter implements ISelectionChanged
 	public MainPresenter(MainView mv)
 	{
 		this.mv = mv;
-//		this.mv.addAscoltatore(this);
 	}
 	
 	@Override
 	public void widgetSelected(SelectionEvent e) {
 		System.out.println("CLICKKKKKKKK");
+		for (Control kid : this.mv.getShell().getChildren()) {
+	          kid.dispose();
+	        }
 	}
 
 	@Override

@@ -51,7 +51,7 @@ public class MainView {
 	
 	
 	public void open(SelectionAdapter sa) throws IOException, Exception {
-		Document.getIstance().updateRootsFS();
+//		Document.getIstance().updateRootsFS();
 		Display display = Display.getDefault();
 		createContents(sa);
 //		createContents();
@@ -73,7 +73,6 @@ public class MainView {
 		menuBar = new MenuBar(shell, SWT.BAR);//, sa);
 		shell.setMenuBar(menuBar);		
 
-		
 		tableViewer = new TableViewer(shell, SWT.BORDER | SWT.FULL_SELECTION);
 		
 		FileMultimedialeTableCLProvider provider = new FileMultimedialeTableCLProvider();
@@ -129,5 +128,9 @@ public class MainView {
 	public TableViewer getTableViewer()
 	{
 		return this.tableViewer;
+	}
+	public Shell getShell()
+	{
+		return this.shell;
 	}
 }
