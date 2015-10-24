@@ -45,27 +45,27 @@ public Image giveIcon(FileMultimediale fm){
 	String estensione = FileUtility.getExtensione(fm.getPath()).toLowerCase();
 	String path = null;
 	
-	System.out.println("estensione: " + estensione);
-	
 	if(this.images.containsKey(estensione))
 		return this.images.get(estensione);
-	
 	
 	if(fm.isComposite())
 	{
 		path = "/Resources/folder.png";
 	}else
 	{
-		switch(estensione)
+		switch(estensione.trim())
 		{
 		case "pdf":
 			path = "/Resources/pdf.png";
+			break;
 		case "txt":
 			path = "/Resources/txt.png";
+			break;
 		default:
 			path = null;
 		}
 	}
+	
 	if(path == null)return null;
 	
 	ImageDescriptor imageDescriptor = ImageDescriptor.createFromFile(
