@@ -30,15 +30,26 @@ public class Document {
 		this.logReport = new FileLogReport("report.txt");
 	}
 	
-	public Roots getRoots()
+	public List<String> getRoots()
 	{
-		return this.roots;
+		return this.roots.getRoots();
 	}
 	
-	public Clienti getClienti()
+	public List<String[]> getClienti()
 	{
-		return this.clienti;
+		List<String[]> ret = new ArrayList<String[]>();
+		for(String k : this.clienti.getLogin().keySet())
+		{
+			String [] el = new String[2];
+			el[0] = k;
+			el[1] = this.clienti.getLogin().get(k);
+			System.out.println("key: " + k + " value: " + this.clienti.getLogin().get(k));
+			ret.add(el);
+		}
+		return ret;
 	}
+	
+	
 	
 	public FileMultimediale getRoot()
 	{
@@ -171,7 +182,7 @@ class Clienti {
 	
 	private static Clienti istanza;
 	
-	Map<String,String> login;
+	private Map<String,String> login;
 
 	private Clienti()
 	{
@@ -180,6 +191,11 @@ class Clienti {
 		this.login.put("c1", "p");
 		this.login.put("c2", "p");
 		System.out.println("Ho creato l'isntaza!! =)");
+	}
+	
+	public Map<String,String> getLogin()
+	{
+		return this.login;
 	}
 	
 	public static Clienti getInstance()
@@ -232,7 +248,7 @@ class Roots {
 	{
 		roots = new ArrayList<String>();
 		//inserimento automatio di una cartella di prova per motivi di test
-		this.roots.add("C:\\Users\\FilippoLB\\Desktop\\Progetto Java Personale\\Prototitpo\\Server\\ServerShare\\provafolder");
+		this.roots.add("C:\\Users\\FilippoLB\\workspace\\ServerShare2\\provafolder");
 	}
 	
 	public List<String> getRoots()

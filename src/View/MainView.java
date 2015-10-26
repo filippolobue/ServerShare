@@ -1,21 +1,14 @@
 package View;
 
 import org.eclipse.swt.widgets.Display;
-
 import java.util.List;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.widgets.Table;
-
 import java.io.IOException;
-
 import org.eclipse.jface.viewers.ISelectionChangedListener;
-import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TableViewer;
-import org.eclipse.swt.widgets.TableColumn;
 
 import Model.Document;
 import Tree.FileMultimediale;
@@ -24,9 +17,8 @@ import View.Provider.FileMultimedialeTableCLProvider;
 public class MainView {
 
 	protected Shell shell;
-	private Table table;
 	private MenuBar menuBar;
-	private TableViewer tableViewer;
+	private MyTableViewer tableViewer;
 	
 	/**
 	 * Launch the application.
@@ -43,12 +35,12 @@ public class MainView {
 //	}
 	
 	public MainView() {
+		shell = new Shell();
 	}
 
 	/**
 	 * @wbp.parser.entryPoint
 	 */
-	
 	
 	public void open(SelectionAdapter sa) throws IOException, Exception {
 //		Document.getIstance().updateRootsFS();
@@ -65,49 +57,26 @@ public class MainView {
 	}
 
 	protected void createContents(SelectionAdapter sa) throws IOException, Exception {
-		shell = new Shell();
 		shell.setSize(800, 420);
 		shell.setText("ServerShare");
 		shell.setLayout(new FillLayout(SWT.HORIZONTAL));
 		
-		menuBar = new MenuBar(shell, SWT.BAR);//, sa);
+		menuBar = new MenuBar(shell, SWT.BAR);
 		shell.setMenuBar(menuBar);		
 
-		tableViewer = new TableViewer(shell, SWT.BORDER | SWT.FULL_SELECTION);
+		tableViewer = new MyTableViewer(this.shell, SWT.BORDER | SWT.FULL_SELECTION);
 		
 		FileMultimedialeTableCLProvider provider = new FileMultimedialeTableCLProvider();
 		tableViewer.setContentProvider(provider);
 		tableViewer.setLabelProvider(provider);
 				
-		table = tableViewer.getTable();
-		table.setHeaderVisible(true);
-		table.setLinesVisible(true);
-		
-		TableColumn tblclmnTitolo = new TableColumn(table, SWT.CENTER);
-		tblclmnTitolo.setWidth(135);
-		tblclmnTitolo.setText("Titolo");
-		
-		TableColumn tblclmnData = new TableColumn(table, SWT.NONE);
-		tblclmnData.setWidth(112);
-		tblclmnData.setText("Data");
-		
-		TableColumn tblclmnCondivisibile = new TableColumn(table, SWT.NONE);
-		tblclmnCondivisibile.setWidth(125);
-		tblclmnCondivisibile.setText("Condivisibile");
+		tableViewer.createColumn("Titotlo", 135, SWT.CENTER);
+		tableViewer.createColumn("Data", 110, SWT.CENTER);
+		tableViewer.createColumn("Condivisibile", 125, SWT.CENTER);
 
-		List<FileMultimediale> fmList = Document.getIstance().getTableElement(Document.getIstance().getRoot().getChildren().get(0));
+		List<FileMultimediale> fmList = Document.getIstance().getTableElement(Document.getIstance().getRoot());//.getChildren().get(0));
 		tableViewer.setInput(fmList);
 		this.addAscoltatore(sa);
-//		this.tableViewer.addSelectionChangedListener(new ISelectionChangedListener() {
-//		    public void selectionChanged(final SelectionChangedEvent event) {
-//		        IStructuredSelection selection = (IStructuredSelection)event.getSelection();
-//		        System.out.println("Cliccata row! " + selection.toString());
-//		        if(((FileMultimediale)selection.getFirstElement()).isComposite())
-//		        	System.out.println("Cartella");
-//		        else
-//		        	System.out.println("file");
-//		    }
-//		});
 		
 //		fmList = ((List<FileMultimediale>)tableViewer.getInput());
 //		fmList.remove(0);
@@ -129,6 +98,11 @@ public class MainView {
 	{
 		return this.tableViewer;
 	}
+	public void setTableViewer(MyTableViewer tv)
+	{
+		this.tableViewer = tv;
+	}
+	
 	public Shell getShell()
 	{
 		return this.shell;

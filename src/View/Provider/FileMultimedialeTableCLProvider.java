@@ -16,7 +16,6 @@ public class FileMultimedialeTableCLProvider extends AbstractTableContentLabelPr
     public String getColumnText(Object element, int columnIndex) {
         FileMultimediale fm = (FileMultimediale) element;
         switch (columnIndex) {
- 
          // 0 - For first column
         case 0:
             return fm.getTitolo();

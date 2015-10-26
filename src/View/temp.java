@@ -2,6 +2,11 @@ package View;
 
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.ToolBar;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Menu;
+import org.eclipse.swt.widgets.MenuItem;
+import org.eclipse.wb.swt.SWTResourceManager;
 
 public class temp {
 
@@ -42,7 +47,12 @@ public class temp {
 		shell = new Shell();
 		shell.setSize(450, 300);
 		shell.setText("SWT Application");
+		
+		Menu menu = new Menu(shell, SWT.BAR);
+		shell.setMenuBar(menu);
+		
+		MenuItem mntmNewItem = new MenuItem(menu, SWT.NONE);
+		mntmNewItem.setImage(SWTResourceManager.getImage(temp.class, "/Resources/tick.png"));
 
 	}
-
 }

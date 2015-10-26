@@ -29,6 +29,6 @@ public class ServerMain {
 			e.printStackTrace();
 		}
 	    		
-//				ss.interrupt();
+				ss.interrupt();
 	 }
 }
